@@ -2,7 +2,7 @@ import IClient from "../interfaces/IClient";
 import ICommand from "../interfaces/ICommand";
 import IResponse from "../interfaces/IResponse";
 
-export default class AccountClient implements IClient {
+export class AccountClient implements IClient {
     endpoint: string;
 
     constructor(endpoint: string) {

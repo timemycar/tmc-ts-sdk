@@ -1,4 +1,5 @@
 import ICommand from "../interfaces/ICommand";
+import { RequestMethod } from "../enums/RequestMethod"
 
 const accountGateway = "/api/v1/account"
 

@@ -1,3 +1,5 @@
+import { RequestMethod } from "../enums/RequestMethod";
+
 export default interface ICommand {
     method: RequestMethod,
     authorization: boolean,

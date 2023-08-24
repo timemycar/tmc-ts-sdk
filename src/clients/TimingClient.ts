@@ -2,7 +2,7 @@ import IClient from "../interfaces/IClient";
 import ICommand from "../interfaces/ICommand";
 import IResponse from "../interfaces/IResponse";
 
-export default class TimingClient implements IClient {
+export class TimingClient implements IClient {
     endpoint: string;
 
     constructor(endpoint: string) {

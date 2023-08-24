@@ -1,4 +1,4 @@
-enum ServiceType {
+export enum ServiceType {
     ACCOUNT,
     EVENT,
     TIMING
