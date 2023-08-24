@@ -1,0 +1,14 @@
+{
+  "name": "tmc-ts-sdk",
+  "version": "1.0.0",
+  "description": "TimeMyCar TypeScript SDK",
+  "main": "src/index.ts",
+  "repository": "git.kiboigo.com/timemycar/tmc-ts-sdk",
+  "author": "kiboigo.com",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "axios": "^1.4.0",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6"
+  }
+}
