@@ -9,7 +9,7 @@
 	"scripts": {
 		"test": "jest",
 		"coverage": "jest --collectCoverage",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --write ."
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.4",

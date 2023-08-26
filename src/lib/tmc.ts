@@ -1,3 +1,6 @@
-export * from '../clients/all';
-export * from '../command/all';
-export * from '../config/all';
+export * from '../clients/TimeMyCarClient';
+export * from '../command/Command';
+export * from '../config/TimeMyCarClientConfig';
+export * from '../services/all';
+
+export * from '../enums/RequestMethod';

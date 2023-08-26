@@ -3,9 +3,9 @@ import ICommand from '../interfaces/ICommand';
 import ICommandBuilder from '../interfaces/ICommandBuilder';
 
 /**
- * Commands for the Account Client.
+ * Commands for the TimeMyCar Client.
  */
-export class AccountCommand implements ICommand {
+export class Command implements ICommand {
 	method: RequestMethod;
 	jwt: string;
 	path: string;
@@ -17,25 +17,25 @@ export class AccountCommand implements ICommand {
 	static DEFAULT_PARAMS = new Object();
 
 	constructor() {
-		this.method = AccountCommand.DEFAULT_METHOD;
-		this.jwt = AccountCommand.DEFAULT_JWT;
-		this.path = AccountCommand.DEFAULT_PATH;
-		this.params = AccountCommand.DEFAULT_PARAMS;
+		this.method = Command.DEFAULT_METHOD;
+		this.jwt = Command.DEFAULT_JWT;
+		this.path = Command.DEFAULT_PATH;
+		this.params = Command.DEFAULT_PARAMS;
 	}
 
 	static builder() {
-		return new AccountCommandBuilder();
+		return new CommandBuilder();
 	}
 }
 
 /**
- * Builder for the AccountCommand.
+ * Builder for the Command.
  */
-class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
-	private command: AccountCommand;
+class CommandBuilder implements ICommandBuilder<Command> {
+	private command: Command;
 
 	constructor() {
-		this.command = new AccountCommand();
+		this.command = new Command();
 	}
 
 	/**
@@ -47,7 +47,7 @@ class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
 	 * @param method    Command Method;
 	 * @returns
 	 */
-	withMethod(method: RequestMethod): AccountCommandBuilder {
+	withMethod(method: RequestMethod): CommandBuilder {
 		this.command.method = method;
 		return this;
 	}
@@ -60,7 +60,7 @@ class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
 	 * @param jwt       JWT Authorization Token.
 	 * @returns
 	 */
-	withJwt(jwt: string): AccountCommandBuilder {
+	withJwt(jwt: string): CommandBuilder {
 		this.command.jwt = jwt;
 		return this;
 	}
@@ -73,7 +73,7 @@ class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
 	 * @param path      RPC Command Path
 	 * @returns
 	 */
-	withPath(path: string): AccountCommandBuilder {
+	withPath(path: string): CommandBuilder {
 		this.command.path = path;
 		return this;
 	}
@@ -87,7 +87,7 @@ class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
 	 * @param params    Command Params
 	 * @returns
 	 */
-	withParams(params: Object): AccountCommandBuilder {
+	withParams(params: Object): CommandBuilder {
 		this.command.params = params;
 		return this;
 	}
@@ -97,7 +97,7 @@ class AccountCommandBuilder implements ICommandBuilder<AccountCommand> {
 	 *
 	 * @returns         Command Object
 	 */
-	build(): AccountCommand {
+	build(): Command {
 		return this.command;
 	}
 }

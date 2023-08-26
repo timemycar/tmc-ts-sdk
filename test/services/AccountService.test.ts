@@ -1,16 +1,16 @@
-import { AccountCommand } from '../../src/command/AccountCommand';
-import { RequestMethod } from '../../src/enums/RequestMethod';
 import {
-	AccountService,
+	Command,
 	OrganizationCreateCall,
 	OrganizationListCall,
 	UserCreateCall,
-	UserLoginCall
-} from '../../src/services/AccountService';
+	UserLoginCall,
+	RequestMethod
+} from '../../src';
+import { AccountService } from '../../src/services/AccountService';
 
 const accountPath = AccountService.ACCOUNT_PATH;
-const defaultJwt = AccountCommand.DEFAULT_JWT;
-const defaultParams = AccountCommand.DEFAULT_PARAMS;
+const defaultJwt = Command.DEFAULT_JWT;
+const defaultParams = Command.DEFAULT_PARAMS;
 
 const jwt = 'test-jwt';
 const orgName = 'test-org';

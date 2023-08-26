@@ -2,9 +2,9 @@ import IClientConfig from '../interfaces/IClientConfig';
 import IClientConfigBuilder from '../interfaces/IClientConfigBuilder';
 
 /**
- * Config for the AccountClient.
+ * Config for the TimeMyCar Client.
  */
-export class AccountClientConfig implements IClientConfig {
+export class TimeMyCarClientConfig implements IClientConfig {
 	endpoint: string;
 	timeout: number;
 
@@ -12,28 +12,28 @@ export class AccountClientConfig implements IClientConfig {
 	static DEFAULT_TIMEOUT = 4000;
 
 	constructor() {
-		this.endpoint = AccountClientConfig.DEFAULT_ENDPOINT;
-		this.timeout = AccountClientConfig.DEFAULT_TIMEOUT;
+		this.endpoint = TimeMyCarClientConfig.DEFAULT_ENDPOINT;
+		this.timeout = TimeMyCarClientConfig.DEFAULT_TIMEOUT;
 	}
 
 	/**
-	 * Builder for creating the AccountClientConfig.
+	 * Builder for creating the TimeMyCarConfig.
 	 *
 	 * @returns     Builder.
 	 */
 	static builder() {
-		return new AccountClientConfigBuilder();
+		return new TimeMyCarClientConfigBuilder();
 	}
 }
 
 /**
- * Builder for AccountClientConfig.
+ * Builder for TimeMyCarConfig.
  */
-class AccountClientConfigBuilder implements IClientConfigBuilder<AccountClientConfig> {
-	private config: AccountClientConfig;
+class TimeMyCarClientConfigBuilder implements IClientConfigBuilder<TimeMyCarClientConfig> {
+	private config: TimeMyCarClientConfig;
 
 	constructor() {
-		this.config = new AccountClientConfig();
+		this.config = new TimeMyCarClientConfig();
 	}
 
 	/**
@@ -44,7 +44,7 @@ class AccountClientConfigBuilder implements IClientConfigBuilder<AccountClientCo
 	 * @param endpoint  Endpoint to set
 	 * @returns
 	 */
-	withEndpoint(endpoint: string): AccountClientConfigBuilder {
+	withEndpoint(endpoint: string): TimeMyCarClientConfigBuilder {
 		this.config.endpoint = endpoint;
 		return this;
 	}
@@ -57,17 +57,17 @@ class AccountClientConfigBuilder implements IClientConfigBuilder<AccountClientCo
 	 * @param timeout   Maximum Timeout in ms.
 	 * @returns
 	 */
-	withTimeout(timeout: number): AccountClientConfigBuilder {
+	withTimeout(timeout: number): TimeMyCarClientConfigBuilder {
 		this.config.timeout = timeout;
 		return this;
 	}
 
 	/**
-	 * Builds the AccountClientConfig
+	 * Builds the TimeMyCarConfig
 	 *
 	 * @returns     Config Object
 	 */
-	build(): AccountClientConfig {
+	build(): TimeMyCarClientConfig {
 		return this.config;
 	}
 }

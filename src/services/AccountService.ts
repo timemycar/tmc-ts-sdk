@@ -1,5 +1,5 @@
 import { RequestMethod } from '../enums/RequestMethod';
-import { AccountCommand } from '../command/AccountCommand';
+import { Command } from '../command/Command';
 
 export class AccountService {
 	static ACCOUNT_PATH = '/api/v1/account';
@@ -12,11 +12,11 @@ export class AccountService {
  * @param jwt                   JWT Auth Token.
  * @returns                     Organization Create Command.
  */
-export function OrganizationCreateCall(organizationName: string, jwt: string): AccountCommand {
+export function OrganizationCreateCall(organizationName: string, jwt: string): Command {
 	const paramsObject: any = new Object();
 	paramsObject['name'] = organizationName;
 
-	const command = AccountCommand.builder()
+	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withJwt(jwt)
 		.withPath(AccountService.ACCOUNT_PATH + '/organization/create')
@@ -31,8 +31,8 @@ export function OrganizationCreateCall(organizationName: string, jwt: string): A
  *
  * @returns                 Organization List Command.
  */
-export function OrganizationListCall(): AccountCommand {
-	const command = AccountCommand.builder()
+export function OrganizationListCall(): Command {
+	const command = Command.builder()
 		.withMethod(RequestMethod.GET)
 		.withPath(AccountService.ACCOUNT_PATH + '/organization/list')
 		.build();
@@ -55,7 +55,7 @@ export function UserCreateCall(
 	firstName: string,
 	lastName: string,
 	plainPassword: string
-): AccountCommand {
+): Command {
 	// Construct Params Object.
 	const paramsObject: any = new Object();
 	paramsObject['userEmail'] = userEmail;
@@ -63,7 +63,7 @@ export function UserCreateCall(
 	paramsObject['lastName'] = lastName;
 	paramsObject['plainPassword'] = plainPassword;
 
-	const command = AccountCommand.builder()
+	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withPath(AccountService.ACCOUNT_PATH + '/user/create')
 		.withParams(paramsObject)
@@ -79,13 +79,13 @@ export function UserCreateCall(
  * @param plainPassword     User's Password (cleartext)
  * @returns                 User Login Command.
  */
-export function UserLoginCall(userEmail: string, plainPassword: string): AccountCommand {
+export function UserLoginCall(userEmail: string, plainPassword: string): Command {
 	// Construct Params Object.
 	const paramsObject: any = new Object();
 	paramsObject['userEmail'] = userEmail;
 	paramsObject['plainPassword'] = plainPassword;
 
-	const command = AccountCommand.builder()
+	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withPath(AccountService.ACCOUNT_PATH + '/user/login')
 		.withParams(paramsObject)

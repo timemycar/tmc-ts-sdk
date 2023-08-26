@@ -1,10 +1,9 @@
-import { AccountCommand } from '../../src/command/AccountCommand';
-import { RequestMethod } from '../../src/enums/RequestMethod';
+import { Command, RequestMethod } from '../../src';
 
-const defaultMethod = AccountCommand.DEFAULT_METHOD;
-const defaultJwt = AccountCommand.DEFAULT_JWT;
-const defaultPath = AccountCommand.DEFAULT_PATH;
-const defaultParams = AccountCommand.DEFAULT_PARAMS;
+const defaultMethod = Command.DEFAULT_METHOD;
+const defaultJwt = Command.DEFAULT_JWT;
+const defaultPath = Command.DEFAULT_PATH;
+const defaultParams = Command.DEFAULT_PARAMS;
 
 const newMethod = RequestMethod.GET;
 const newJwt = 'jwt-abc';
@@ -14,7 +13,7 @@ const newParams: any = new Object();
 newParams['abc'] = 'abc';
 
 test('Default Command', () => {
-	const command = AccountCommand.builder().build();
+	const command = Command.builder().build();
 
 	expect(command).toHaveProperty('method', defaultMethod);
 	expect(command).toHaveProperty('jwt', defaultJwt);
@@ -23,7 +22,7 @@ test('Default Command', () => {
 });
 
 test('Fully Modified Command', () => {
-	const command = AccountCommand.builder()
+	const command = Command.builder()
 		.withMethod(newMethod)
 		.withJwt(newJwt)
 		.withPath(newPath)
