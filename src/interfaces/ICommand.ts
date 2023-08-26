@@ -1,8 +1,8 @@
-import { RequestMethod } from "../enums/RequestMethod";
+import { RequestMethod } from '../enums/RequestMethod';
 
 export default interface ICommand {
-    method: RequestMethod,
-    jwt: string,
-    path: string,
-    params: Object
+	method: RequestMethod;
+	jwt: string;
+	path: string;
+	params: Object;
 }

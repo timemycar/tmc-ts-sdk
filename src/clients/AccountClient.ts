@@ -1,19 +1,13 @@
-import AbstractClient from "../classes/AbstractClient";
-import { AccountCommand } from "../command/AccountCommand";
-import { AccountClientConfig } from "../config/AccountClientConfig";
-import ICommand from "../interfaces/ICommand";
-import IResponse from "../interfaces/IResponse";
-import axios from "axios";
+import AbstractClient from '../classes/AbstractClient';
+import { AccountCommand } from '../command/AccountCommand';
+import { AccountClientConfig } from '../config/AccountClientConfig';
 
 export class AccountClient extends AbstractClient {
-    constructor(config: AccountClientConfig) {
-        super(config);
-    }
+	constructor(config: AccountClientConfig) {
+		super(config);
+	}
 
-    send(command: AccountCommand) {
-
-    }
+	async send(command: AccountCommand): Promise<any> {
+		return super.send(command);
+	}
 }
-
-export * from "../services/AccountService";
-export * from "../config/AccountClientConfig";

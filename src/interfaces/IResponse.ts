@@ -1,3 +1,1 @@
-export default interface IResponse {
-    
-}
+export default interface IResponse {}

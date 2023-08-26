@@ -1,1 +1,1 @@
-export * from "./lib/tmc";
+export * from './lib/tmc';
