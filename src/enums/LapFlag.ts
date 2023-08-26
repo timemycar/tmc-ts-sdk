@@ -1,0 +1,8 @@
+// Taken directly from Helium (08/26/23)
+
+export enum LapFlag {
+	FASTEST = 'FASTEST',
+	SLOWEST = 'SLOWEST',
+	RUNCOUNT_DEVIATION = 'RUNCOUNT_DEVIATION',
+	LAPTIME_DEVIATION = 'LAPTIME_DEVIATION'
+}
