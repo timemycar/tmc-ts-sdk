@@ -2,7 +2,7 @@ import { RequestMethod } from "../enums/RequestMethod";
 
 export default interface ICommand {
     method: RequestMethod,
-    authorization: boolean,
-    endpoint: string,
+    jwt: string,
+    path: string,
     params: Object
 }
