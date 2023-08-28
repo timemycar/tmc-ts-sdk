@@ -4,7 +4,7 @@ stages:
 
 prettier:
   stage: style
-  image: node:current-alpine
+  image: node:18-alpine
 
   before_script:
     - apk add git
@@ -15,7 +15,7 @@ prettier:
 
 jest:
   stage: test
-  image: node:current-alpine
+  image: node:18-alpine
 
   before_script:
     - apk add git
