@@ -7,7 +7,7 @@ export class TimeMyCarClient extends AbstractClient {
 		super(config);
 	}
 
-	async send(command: Command): Promise<any> {
+	async send(command: Command): Promise<NonNullable<object>> {
 		return super.send(command);
 	}
 }

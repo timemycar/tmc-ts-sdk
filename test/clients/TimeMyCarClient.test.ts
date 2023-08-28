@@ -9,7 +9,7 @@ const config = TimeMyCarClientConfig.builder().build();
 // API Constants
 const testId = 'sample-id';
 const testPostBody = { testId: testId };
-const testGetBody = new Array();
+const testGetBody: object = [];
 
 // API Call Interceptor
 const server = setupServer(

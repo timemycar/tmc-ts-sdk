@@ -12,6 +12,6 @@ export default interface IEvent {
 	runCount: number;
 	courseCount: number;
 	organizationId: string;
-	ruleset: Object;
+	ruleset: object;
 	visibility: VisibilityStatus;
 }

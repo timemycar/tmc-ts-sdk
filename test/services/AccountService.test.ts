@@ -8,59 +8,60 @@ import {
 } from '../../src';
 import { AccountService } from '../../src/services/AccountService';
 
-const accountPath = AccountService.ACCOUNT_PATH;
+const userPath = AccountService.USER_PATH;
+const organizationPath = AccountService.ORGANIZATION_PATH;
 const defaultJwt = Command.DEFAULT_JWT;
 const defaultParams = Command.DEFAULT_PARAMS;
 
 const jwt = 'test-jwt';
 const orgName = 'test-org';
 
-const userEmail = 'abc@kiboigo.com';
+const email = 'abc@kiboigo.com';
 const firstName = 'test';
 const lastName = 'user';
-const plainPassword = 'password';
+const password = 'password';
 
-test('OrganizationCreateCall Command', () => {
+test('OrganizationCreateCall Command', async () => {
 	const command = OrganizationCreateCall(orgName, jwt);
 
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(jwt);
-	expect(command.path).toBe(accountPath + '/organization/create');
+	expect(command.path).toBe(organizationPath + '/create');
 	expect(command.params).toHaveProperty('name', orgName);
 });
 
 test('OrganizationListCall Command', () => {
 	const command = OrganizationListCall();
 
-	expect(command.method).toBe(RequestMethod.GET);
+	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(defaultJwt);
-	expect(command.path).toBe(accountPath + '/organization/list');
+	expect(command.path).toBe(organizationPath + '/list');
 	expect(command.params).toBe(defaultParams);
 });
 
 test('UserCreateCall Command', () => {
-	const command = UserCreateCall(userEmail, firstName, lastName, plainPassword);
+	const command = UserCreateCall(email, firstName, lastName, password);
 
 	// Command Checking
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(defaultJwt);
-	expect(command.path).toBe(accountPath + '/user/create');
+	expect(command.path).toBe(userPath + '/create');
 
 	// Params Checking
-	expect(command.params).toHaveProperty('userEmail', userEmail);
+	expect(command.params).toHaveProperty('email', email);
 	expect(command.params).toHaveProperty('firstName', firstName);
 	expect(command.params).toHaveProperty('lastName', lastName);
-	expect(command.params).toHaveProperty('plainPassword', plainPassword);
+	expect(command.params).toHaveProperty('password', password);
 });
 
 test('UserLoginCall Command', () => {
-	const command = UserLoginCall(userEmail, plainPassword);
+	const command = UserLoginCall(email, password);
 
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(defaultJwt);
-	expect(command.path).toBe(accountPath + '/user/login');
+	expect(command.path).toBe(userPath + '/login');
 
 	// Params Checking
-	expect(command.params).toHaveProperty('userEmail', userEmail);
-	expect(command.params).toHaveProperty('plainPassword', plainPassword);
+	expect(command.params).toHaveProperty('email', email);
+	expect(command.params).toHaveProperty('password', password);
 });

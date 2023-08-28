@@ -1,3 +1,6 @@
+// Allows for us to construct paramObjects.
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import { RequestMethod } from '../enums/RequestMethod';
 import { Command } from '../command/Command';
 import { Racer } from '../model/Racer';
@@ -8,19 +11,122 @@ import IEvent from '../interfaces/IEvent';
 // Change ASAP.
 
 export class EventService {
-	static EVENT_PATH = '/api/v1/event';
+	static EVENT_PATH = '/v1/event';
 }
 
 /**
- * Command for adding a Racer to an Event.
+ * Command for create a TimeMyCar Event.
+ *
+ * @param organizationId 	Organization ID to add Event to.
+ * @param eventName 		Event Name.
+ * @param description 		Event Description.
+ * @param location 			Event Location.
+ * @param runCount 			Event Run Count.
+ * @param courseCount 		Event Course Count.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event Create Command.
+ */
+export function EventCreateCall(
+	organizationId: string,
+	eventName: string,
+	description: string,
+	location: string,
+	runCount: number,
+	courseCount: number,
+	jwt: string
+): Command {
+	const paramsObject: any = new Object();
+	paramsObject['organizationId'] = organizationId;
+	paramsObject['eventName'] = eventName;
+	paramsObject['description'] = description;
+	paramsObject['location'] = location;
+	paramsObject['runCount'] = runCount;
+	paramsObject['courseCount'] = courseCount;
+
+	const command = Command.builder()
+		.withMethod(RequestMethod.POST)
+		.withJwt(jwt)
+		.withPath(EventService.EVENT_PATH + '/create')
+		.withParams(paramsObject)
+		.build();
+
+	return command;
+}
+
+/**
+ * Command for getting the information of a TimeMyCar Event.
+ *
+ * @param eventId 			Event ID.
+ * @param organizationId 	Organization ID if you have it. Set to undefined if you don't have this.
+ * @param jwt 				JWT Auth Token. Set to undefined if you don't have or only want to search public Events.
+ * @returns 				Event Info Command.
+ */
+export function EventInfoCall(eventId: string, organizationId?: string, jwt?: string): Command {
+	const paramsObject: any = new Object();
+	paramsObject['eventId'] = eventId;
+
+	if (organizationId) {
+		paramsObject['organizationId'] = organizationId;
+	}
+
+	const path = EventService.EVENT_PATH + '/info';
+
+	let command: Command;
+
+	// Generate command based on JWT.
+	if (jwt) {
+		command = Command.builder()
+			.withMethod(RequestMethod.POST)
+			.withJwt(jwt)
+			.withPath(path)
+			.withParams(paramsObject)
+			.build();
+	} else {
+		command = Command.builder()
+			.withMethod(RequestMethod.POST)
+			.withPath(path)
+			.withParams(paramsObject)
+			.build();
+	}
+
+	return command;
+}
+
+/**
+ * Command to list all TimeMyCar Events.
+ *
+ * @param jwt 				JWT Auth Token. Set to undefined if you don't have or only want to search public Events.
+ * @returns 				Event List Command.
+ */
+export function EventListCall(jwt?: string): Command {
+	let command: Command;
+
+	if (jwt) {
+		command = Command.builder()
+			.withMethod(RequestMethod.POST)
+			.withJwt(jwt)
+			.withPath(EventService.EVENT_PATH + '/list')
+			.build();
+	} else {
+		command = Command.builder()
+			.withMethod(RequestMethod.POST)
+			.withPath(EventService.EVENT_PATH + '/list')
+			.build();
+	}
+
+	return command;
+}
+
+/**
+ * Command for adding a Racer to a TimeMyCar Event.
  *
  * @param racer             Racer to add.
  * @param organizationId    Organization ID to add Racer to.
  * @param eventId           Event ID to add Racer to.
  * @param jwt               JWT Auth Token.
- * @returns                 Event Add Racer Command.
+ * @returns                 Event Racer Add Command.
  */
-export function EventAddRacerCall(
+export function EventRacerAddCall(
 	racer: Racer,
 	organizationId: string,
 	eventId: string,
@@ -50,22 +156,74 @@ export function EventAddRacerCall(
 }
 
 /**
- * Command for adding a RacerQ to an Event.
+ * Command to list all of the Racers in a TimeMyCar Event.
+ *
+ * @param organizationId 	Organization ID.
+ * @param eventId 			Event ID.
+ * @returns 				Event Racer All Event Command.
+ */
+export function EventRacerAllEventCall(organizationId: string, eventId: string): Command {
+	const paramsObject: any = new Object();
+	paramsObject['organizationId'] = organizationId;
+	paramsObject['eventId'] = eventId;
+
+	const command = Command.builder()
+		.withMethod(RequestMethod.POST)
+		.withPath(EventService.EVENT_PATH + '/racer/all')
+		.withParams(paramsObject)
+		.build();
+
+	return command;
+}
+
+/**
+ * Command to list all of the Racers in a TimeMyCar Organization.
+ *
+ * @param organizationId 	Organization ID.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event Racer All Organization Command.
+ */
+export function EventRacerAllOrganizationCall(organizationId: string, jwt: string): Command {
+	const paramsObject: any = new Object();
+	paramsObject['organizationId'] = organizationId;
+
+	const command = Command.builder()
+		.withMethod(RequestMethod.POST)
+		.withJwt(jwt)
+		.withPath(EventService.EVENT_PATH + '/racer/organization/all')
+		.withParams(paramsObject)
+		.build();
+
+	return command;
+}
+
+/**
+ * Command for adding a RacerQ to a TimeMyCar Event.
  *
  * @param racerId 			Racer's ID to add.
  * @param organizationId 	Organization ID to add RacerQ to.
  * @param eventId 			Event ID To add RacerQ to.
  * @param courseNumber 		Course Number to add RacerQ to.
  * @param jwt				JWT Auth Token.
- * @returns 				Event Add RacerQ Command.
+ * @returns 				Event RacerQ Add Command.
  */
-export function EventAddRacerQCall(
+export function EventRacerQAddCall(
 	racerId: string,
 	organizationId: string,
 	eventId: string,
 	courseNumber: number,
 	jwt: string
 ): Command {
+	// Ensure courseNumber is an integer.
+	if (!Number.isInteger(courseNumber)) {
+		console.warn(
+			`courseNumber: ${courseNumber} is not an integer and will be rounded to: ${Math.floor(
+				courseNumber
+			)}`
+		);
+		courseNumber = Math.floor(courseNumber);
+	}
+
 	const paramsObject: any = new Object();
 	paramsObject['organizationId'] = organizationId;
 	paramsObject['eventId'] = eventId;
@@ -82,187 +240,73 @@ export function EventAddRacerQCall(
 	return command;
 }
 
-export function EventCreateCall(
+/**
+ * Command to list all of the RacerQ Entries in a TimeMyCar Event by Course
+ *
+ * @param organizationId 	Organization ID.
+ * @param eventId 			Event ID.
+ * @param courseNumber 		Course Number.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event RacerQ All Command.
+ */
+export function EventRacerQAllCall(
 	organizationId: string,
-	eventName: string,
-	description: string,
-	location: string,
-	runCount: number,
-	courseCount: number,
+	eventId: string,
+	courseNumber: number,
 	jwt: string
-) {
+): Command {
+	// Ensure courseNumber is an integer.
+	if (!Number.isInteger(courseNumber)) {
+		console.warn(
+			`courseNumber: ${courseNumber} is not an integer and will be rounded to: ${Math.floor(
+				courseNumber
+			)}`
+		);
+		courseNumber = Math.floor(courseNumber);
+	}
+
 	const paramsObject: any = new Object();
 	paramsObject['organizationId'] = organizationId;
-	paramsObject['eventName'] = eventName;
-	paramsObject['description'] = description;
-	paramsObject['location'] = location;
-	paramsObject['runCount'] = runCount;
-	paramsObject['courseCount'] = courseCount;
+	paramsObject['eventId'] = eventId;
+	paramsObject['courseNumber'] = courseNumber;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/create')
+		.withPath(EventService.EVENT_PATH + '/racerq/all')
 		.withParams(paramsObject)
 		.build();
 
 	return command;
 }
 
-export function EventInfoCall(eventId: string, jwt: string): Command {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/' + eventId + '/info')
-		.build();
-
-	return command;
-}
-
-export function EventInfoCallSpecific(
-	eventId: string,
-	organizationId: string,
-	jwt: string
-): Command {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/' + eventId + '/organization/' + organizationId + '/info')
-		.build();
-
-	return command;
-}
-
-export function EventLapsAllCall(eventId: string, jwt: string): Command {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/' + eventId + '/laps/all')
-		.build();
-
-	return command;
-}
-
-export function EventLapsNewCall(
-	eventId: string,
-	organizationId: string,
-	creationTime: string,
-	jwt: string
-) {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(
-			EventService.EVENT_PATH +
-				'/' +
-				eventId +
-				'/organization/' +
-				organizationId +
-				'/laps/' +
-				creationTime +
-				'/new'
-		)
-		.build();
-
-	return command;
-}
-
-export function EventLapsUpdatedCall(
-	eventId: string,
-	organizationId: string,
-	lastUpdatedTime: string,
-	jwt: string
-) {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(
-			EventService.EVENT_PATH +
-				'/' +
-				eventId +
-				'/organization/' +
-				organizationId +
-				'/laps/' +
-				lastUpdatedTime +
-				'/updated'
-		)
-		.build();
-
-	return command;
-}
-
-export function EventListCall(jwt?: string) {
-	let command: Command;
-
-	if (jwt) {
-		command = Command.builder()
-			.withMethod(RequestMethod.GET)
-			.withJwt(jwt)
-			.withPath(EventService.EVENT_PATH + '/event/list')
-			.build();
-	} else {
-		command = Command.builder()
-			.withMethod(RequestMethod.GET)
-			.withPath(EventService.EVENT_PATH + '/event/list')
-			.build();
-	}
-
-	return command;
-}
-
-export function EventRacerAllEventCall(eventId: string, organizationId: string, jwt: string) {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(
-			EventService.EVENT_PATH + '/' + eventId + '/organization/' + organizationId + '/racer/all'
-		)
-		.build();
-
-	return command;
-}
-
-export function EventRacerAllOrganizationCall(organizationId: string, jwt: string) {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/organization/' + organizationId + '/racer/all')
-		.build();
-
-	return command;
-}
-
-export function EventRacerQAllCall(
-	eventId: string,
-	organizationId: string,
-	courseNumber: number,
-	jwt: string
-) {
-	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withJwt(jwt)
-		.withPath(
-			EventService.EVENT_PATH +
-				'/' +
-				eventId +
-				'/organization/' +
-				organizationId +
-				'/course/' +
-				courseNumber +
-				'/racerq/all'
-		)
-		.build();
-
-	return command;
-}
-
-export function EventRemoveRacerQCall(
+/**
+ * Command to remove a RacerQ Entry from a TimeMyCar Event.
+ *
+ * @param racerId 			Racer Id for RacerQ Entry.
+ * @param organizationId 	Organization Id.
+ * @param eventId 			Event Id.
+ * @param courseNumber 		Course Number.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event RacerQ RemoveCommand.
+ */
+export function EventRacerQRemoveCall(
 	racerId: string,
 	organizationId: string,
 	eventId: string,
 	courseNumber: number,
 	jwt: string
-) {
+): Command {
+	// Ensure courseNumber is an integer.
+	if (!Number.isInteger(courseNumber)) {
+		console.warn(
+			`courseNumber: ${courseNumber} is not an integer and will be rounded to: ${Math.floor(
+				courseNumber
+			)}`
+		);
+		courseNumber = Math.floor(courseNumber);
+	}
+
 	const paramsObject: any = new Object();
 	paramsObject['racerId'] = racerId;
 	paramsObject['organizationId'] = organizationId;
@@ -279,27 +323,51 @@ export function EventRemoveRacerQCall(
 	return command;
 }
 
-export function EventUpdateCall(event: IEvent, organizationId: string, jwt: string) {
+/**
+ * Command to update a RacerQ Entry in a TimeMyCar Event.
+ *
+ * @param racerQ 			RacerQ Object.
+ * @param organizationId 	Organization Id.
+ * @param eventId 			Event Id.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event RacerQ Update Command.
+ */
+export function EventRacerQUpdateCall(
+	racerQ: IRacerQ,
+	organizationId: string,
+	eventId: string,
+	jwt: string
+): Command {
 	const paramsObject: any = new Object();
-	paramsObject['event'] = event;
+	paramsObject['racerQ'] = racerQ;
 	paramsObject['organizationId'] = organizationId;
+	paramsObject['eventId'] = eventId;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/update')
+		.withPath(EventService.EVENT_PATH + '/racerq/update')
 		.withParams(paramsObject)
 		.build();
 
 	return command;
 }
 
-export function EventUpdateRacerCall(
+/**
+ * Command to update a Racer in a TimeMyCar Event.
+ *
+ * @param racer 			Racer Object.
+ * @param organizationId 	Organization Id.
+ * @param eventId 			Event Id.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event Racer Update Command.
+ */
+export function EventRacerUpdateCall(
 	racer: Racer,
 	organizationId: string,
 	eventId: string,
 	jwt: string
-) {
+): Command {
 	const paramsObject: any = new Object();
 	paramsObject['racer'] = racer;
 	paramsObject['organizationId'] = organizationId;
@@ -315,21 +383,23 @@ export function EventUpdateRacerCall(
 	return command;
 }
 
-export function EventUpdateRacerQCall(
-	racerQ: IRacerQ,
-	organizationId: string,
-	eventId: string,
-	jwt: string
-) {
+/**
+ * Command to update a TimeMyCar Event.
+ *
+ * @param event 			Event Object.
+ * @param organizationId 	Organization Id.
+ * @param jwt 				JWT Auth Token.
+ * @returns 				Event Update Command.
+ */
+export function EventUpdateCall(event: IEvent, organizationId: string, jwt: string): Command {
 	const paramsObject: any = new Object();
-	paramsObject['racerQ'] = racerQ;
+	paramsObject['event'] = event;
 	paramsObject['organizationId'] = organizationId;
-	paramsObject['eventId'] = eventId;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withJwt(jwt)
-		.withPath(EventService.EVENT_PATH + '/racerq/update')
+		.withPath(EventService.EVENT_PATH + '/update')
 		.withParams(paramsObject)
 		.build();
 

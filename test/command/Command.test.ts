@@ -9,8 +9,7 @@ const newMethod = RequestMethod.GET;
 const newJwt = 'jwt-abc';
 const newPath = '/abc/def/path';
 
-const newParams: any = new Object();
-newParams['abc'] = 'abc';
+const newParams: object = { abc: 'abc' };
 
 test('Default Command', () => {
 	const command = Command.builder().build();

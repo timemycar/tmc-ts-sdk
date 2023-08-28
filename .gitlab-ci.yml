@@ -1,0 +1,30 @@
+stages:
+  - style
+  - test
+
+prettier:
+  stage: style
+  image: alpine
+
+  before_script:
+    - apk add nodejs
+    - apk add npm
+    - npm install -g yarn
+
+  script:
+    - yarn
+    - yarn lint
+
+jest:
+  stage: test
+  image: alpine
+
+  before_script:
+    - apk add nodejs
+    - apk add npm
+    - npm install -g yarn
+
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  script:
+    - yarn
+    - yarn test:ci

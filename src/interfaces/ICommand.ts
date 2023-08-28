@@ -4,5 +4,5 @@ export default interface ICommand {
 	method: RequestMethod;
 	jwt: string;
 	path: string;
-	params: Object;
+	params: object;
 }

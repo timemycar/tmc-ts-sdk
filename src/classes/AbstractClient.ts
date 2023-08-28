@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { RequestMethod } from '../enums/RequestMethod';
 import IClientConfig from '../interfaces/IClientConfig';
-import ICommand from '../interfaces/ICommand';
 import { Command } from '../command/Command';
 
 export default abstract class AbstractClient {
@@ -13,8 +12,16 @@ export default abstract class AbstractClient {
 		this.timeout = config['timeout'];
 	}
 
-	async send(command: ICommand): Promise<any> {
-		let config: AxiosRequestConfig<Object> = {
+	/**
+	 * Abstract Client Send.
+	 *
+	 * TODO: Add Error Handling.
+	 *
+	 * @param command
+	 * @returns
+	 */
+	async send(command: Command): Promise<NonNullable<object>> {
+		let config: AxiosRequestConfig<object> = {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'

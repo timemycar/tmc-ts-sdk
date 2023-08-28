@@ -9,7 +9,7 @@ export class Command implements ICommand {
 	method: RequestMethod;
 	jwt: string;
 	path: string;
-	params: Object;
+	params: object;
 
 	static DEFAULT_METHOD = RequestMethod.POST;
 	static DEFAULT_JWT = 'NO-AUTH';
@@ -87,7 +87,7 @@ class CommandBuilder implements ICommandBuilder<Command> {
 	 * @param params    Command Params
 	 * @returns
 	 */
-	withParams(params: Object): CommandBuilder {
+	withParams(params: object): CommandBuilder {
 		this.command.params = params;
 		return this;
 	}

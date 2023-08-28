@@ -1,25 +1,29 @@
+// Allows for us to construct paramObjects.
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import { RequestMethod } from '../enums/RequestMethod';
 import { Command } from '../command/Command';
 
 export class AccountService {
-	static ACCOUNT_PATH = '/api/v1/account';
+	static USER_PATH = '/v1/user';
+	static ORGANIZATION_PATH = '/v1/organization';
 }
 
 /**
  * Command for creating an Organization on TimeMyCar.
  *
- * @param organizationName      Organization Name.
+ * @param name      			Organization Name.
  * @param jwt                   JWT Auth Token.
  * @returns                     Organization Create Command.
  */
-export function OrganizationCreateCall(organizationName: string, jwt: string): Command {
+export function OrganizationCreateCall(name: string, jwt: string): Command {
 	const paramsObject: any = new Object();
-	paramsObject['name'] = organizationName;
+	paramsObject['name'] = name;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
 		.withJwt(jwt)
-		.withPath(AccountService.ACCOUNT_PATH + '/organization/create')
+		.withPath(AccountService.ORGANIZATION_PATH + '/create')
 		.withParams(paramsObject)
 		.build();
 
@@ -33,8 +37,8 @@ export function OrganizationCreateCall(organizationName: string, jwt: string): C
  */
 export function OrganizationListCall(): Command {
 	const command = Command.builder()
-		.withMethod(RequestMethod.GET)
-		.withPath(AccountService.ACCOUNT_PATH + '/organization/list')
+		.withMethod(RequestMethod.POST)
+		.withPath(AccountService.ORGANIZATION_PATH + '/list')
 		.build();
 
 	return command;
@@ -44,28 +48,28 @@ export function OrganizationListCall(): Command {
  * Command for creating a TimeMyCar User.
  *
  *
- * @param userEmail         User E-Mail.
+ * @param email         	User E-Mail.
  * @param firstName         User's First Name.
  * @param lastName          User's Last Name.
- * @param plainPassword     User's Password (cleartext)
+ * @param password     		User's Password (cleartext)
  * @returns                 User Creation Command.
  */
 export function UserCreateCall(
-	userEmail: string,
+	email: string,
 	firstName: string,
 	lastName: string,
-	plainPassword: string
+	password: string
 ): Command {
 	// Construct Params Object.
 	const paramsObject: any = new Object();
-	paramsObject['userEmail'] = userEmail;
+	paramsObject['email'] = email;
 	paramsObject['firstName'] = firstName;
 	paramsObject['lastName'] = lastName;
-	paramsObject['plainPassword'] = plainPassword;
+	paramsObject['password'] = password;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
-		.withPath(AccountService.ACCOUNT_PATH + '/user/create')
+		.withPath(AccountService.USER_PATH + '/create')
 		.withParams(paramsObject)
 		.build();
 
@@ -75,19 +79,19 @@ export function UserCreateCall(
 /**
  * Command for logging in as a TimeMyCar User.
  *
- * @param userEmail         User E-Mail.
- * @param plainPassword     User's Password (cleartext)
+ * @param email         	User E-Mail.
+ * @param password     		User's Password (cleartext)
  * @returns                 User Login Command.
  */
-export function UserLoginCall(userEmail: string, plainPassword: string): Command {
+export function UserLoginCall(email: string, password: string): Command {
 	// Construct Params Object.
 	const paramsObject: any = new Object();
-	paramsObject['userEmail'] = userEmail;
-	paramsObject['plainPassword'] = plainPassword;
+	paramsObject['email'] = email;
+	paramsObject['password'] = password;
 
 	const command = Command.builder()
 		.withMethod(RequestMethod.POST)
-		.withPath(AccountService.ACCOUNT_PATH + '/user/login')
+		.withPath(AccountService.USER_PATH + '/login')
 		.withParams(paramsObject)
 		.build();
 
