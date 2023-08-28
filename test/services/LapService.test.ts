@@ -8,7 +8,7 @@ import {
 	LapsAllCall,
 	LapsNewCall,
 	LapsUpdatedCall
-} from '../../src/services/LapService';
+} from '../../src';
 
 let consoleWarnMock: jest.SpyInstance;
 
