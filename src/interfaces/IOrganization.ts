@@ -2,7 +2,7 @@
 
 import type { VisibilityStatus } from '../enums/VisibilityStatus';
 
-export default interface IOrganization {
+export interface IOrganization {
 	id: string;
 	name: string;
 	ownerId: string;

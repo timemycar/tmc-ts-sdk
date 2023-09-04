@@ -3,7 +3,7 @@
 
 import { Command } from '../command/Command';
 import { RequestMethod } from '../enums/RequestMethod';
-import ILap from '../interfaces/ILap';
+import { ILap } from '../interfaces/ILap';
 
 export class LapService {
 	static LAP_PATH = '/v1/lap';

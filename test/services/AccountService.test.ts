@@ -2,9 +2,9 @@ import {
 	Command,
 	OrganizationCreateCall,
 	OrganizationListCall,
+	RequestMethod,
 	UserCreateCall,
-	UserLoginCall,
-	RequestMethod
+	UserLoginCall
 } from '../../src';
 import { AccountService } from '../../src/services/AccountService';
 

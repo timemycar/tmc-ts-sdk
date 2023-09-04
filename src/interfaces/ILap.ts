@@ -3,7 +3,7 @@
 import type { LapFlag } from '../enums/LapFlag';
 import type { LapStatus } from '../enums/LapStatus';
 
-export default interface ILap {
+export interface ILap {
 	id: string;
 	status: LapStatus;
 	racerId: string;

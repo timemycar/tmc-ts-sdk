@@ -1,11 +1,11 @@
 // Allows for us to construct paramObjects.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-import { RequestMethod } from '../enums/RequestMethod';
 import { Command } from '../command/Command';
+import { RequestMethod } from '../enums/RequestMethod';
+import { IEvent } from '../interfaces/IEvent';
+import { IRacerQ } from '../interfaces/IRacerQ';
 import { Racer } from '../model/Racer';
-import IRacerQ from '../interfaces/IRacerQ';
-import IEvent from '../interfaces/IEvent';
 
 // TODO: These currently use the Interfaces because the classes aren't build
 // Change ASAP.

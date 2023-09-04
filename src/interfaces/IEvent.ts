@@ -3,7 +3,7 @@
 import { EventStatus } from '../enums/EventStatus';
 import { VisibilityStatus } from '../enums/VisibilityStatus';
 
-export default interface IEvent {
+export interface IEvent {
 	id: string;
 	name: string;
 	status: EventStatus;

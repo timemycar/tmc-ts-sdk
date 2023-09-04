@@ -13,10 +13,10 @@ import {
 	EventRacerUpdateCall,
 	EventService,
 	EventUpdateCall,
+	IEvent,
+	IRacerQ,
 	RequestMethod
 } from '../../src';
-import IEvent from '../../src/interfaces/IEvent';
-import IRacerQ from '../../src/interfaces/IRacerQ';
 import { Racer } from '../../src/model/Racer';
 
 const jwt = 'test-jwt';

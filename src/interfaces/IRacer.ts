@@ -1,6 +1,6 @@
 // Taken directly from Helium (08/26/23)
 
-export default interface IRacer {
+export interface IRacer {
 	id?: string;
 	motorsportRegId: string;
 	firstName: string;

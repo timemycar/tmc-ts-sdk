@@ -1,6 +1,7 @@
-import { Command, RequestMethod } from '../../src';
-import ILap from '../../src/interfaces/ILap';
 import {
+	ILap,
+	Command,
+	RequestMethod,
 	LapService,
 	LapStartCall,
 	LapStopCall,

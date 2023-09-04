@@ -1,4 +1,4 @@
-import IRacer from '../interfaces/IRacer';
+import { IRacer } from '../interfaces/IRacer';
 
 export class Racer implements IRacer {
 	id?: string | undefined;
