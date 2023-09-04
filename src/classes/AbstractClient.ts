@@ -15,12 +15,10 @@ export default abstract class AbstractClient {
 	/**
 	 * Abstract Client Send.
 	 *
-	 * TODO: Add Error Handling.
-	 *
 	 * @param command
 	 * @returns
 	 */
-	async send(command: Command): Promise<NonNullable<object>> {
+	async send<T>(command: Command): Promise<NonNullable<T>> {
 		let config: AxiosRequestConfig<object> = {
 			headers: {
 				Accept: 'application/json',
