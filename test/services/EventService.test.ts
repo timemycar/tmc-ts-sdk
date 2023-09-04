@@ -81,7 +81,7 @@ test('EventCreateCall Command', () => {
 	expect(command.path).toBe(eventPath + '/create');
 
 	expect(command.params).toHaveProperty('organizationId', organizationId);
-	expect(command.params).toHaveProperty('eventName', eventName);
+	expect(command.params).toHaveProperty('name', eventName);
 	expect(command.params).toHaveProperty('description', eventDescription);
 	expect(command.params).toHaveProperty('location', eventLocation);
 	expect(command.params).toHaveProperty('runCount', eventRunCount);

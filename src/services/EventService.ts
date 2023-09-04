@@ -37,7 +37,7 @@ export function EventCreateCall(
 ): Command {
 	const paramsObject: any = new Object();
 	paramsObject['organizationId'] = organizationId;
-	paramsObject['eventName'] = eventName;
+	paramsObject['name'] = eventName;
 	paramsObject['description'] = description;
 	paramsObject['location'] = location;
 	paramsObject['runCount'] = runCount;
