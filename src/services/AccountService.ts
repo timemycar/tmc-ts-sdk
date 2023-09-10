@@ -97,3 +97,20 @@ export function UserLoginCall(email: string, password: string): Command {
 
 	return command;
 }
+
+/**
+ * Command for getting info about a TimeMyCar User
+ * Only retrives your own info w/ your JWT.
+ *
+ * @param jwt         		JWT Auth Token.
+ * @returns                 User Info Command.
+ */
+export function UserInfoCall(jwt: string): Command {
+	const command = Command.builder()
+		.withMethod(RequestMethod.POST)
+		.withJwt(jwt)
+		.withPath(AccountService.USER_PATH + '/info')
+		.build();
+
+	return command;
+}

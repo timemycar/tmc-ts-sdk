@@ -6,7 +6,7 @@ import {
 	UserCreateCall,
 	UserLoginCall
 } from '../../src';
-import { AccountService } from '../../src/services/AccountService';
+import { AccountService, UserInfoCall } from '../../src/services/AccountService';
 
 const userPath = AccountService.USER_PATH;
 const organizationPath = AccountService.ORGANIZATION_PATH;
@@ -64,4 +64,15 @@ test('UserLoginCall Command', () => {
 	// Params Checking
 	expect(command.params).toHaveProperty('email', email);
 	expect(command.params).toHaveProperty('password', password);
+});
+
+test('UserInfoCall Command', () => {
+	const command = UserInfoCall(jwt);
+
+	expect(command.method).toBe(RequestMethod.POST);
+	expect(command.jwt).toBe(jwt);
+	expect(command.path).toBe(userPath + '/info');
+
+	// Params Checking
+	expect(command.params).toBe(defaultParams);
 });
