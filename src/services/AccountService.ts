@@ -45,6 +45,27 @@ export function OrganizationListCall(): Command {
 }
 
 /**
+ * Command for getting a User's permission level in a TimeMyCar Organization.
+ *
+ * @param organizationId	Organization's ID.
+ * @param jwt				JWT Auth Token.
+ * @returns                 Organization List Command.
+ */
+export function OrganizationPermissionCall(organizationId: string, jwt: string): Command {
+	const paramsObject: any = new Object();
+	paramsObject['organizationId'] = organizationId;
+
+	const command = Command.builder()
+		.withMethod(RequestMethod.POST)
+		.withJwt(jwt)
+		.withPath(AccountService.ORGANIZATION_PATH + '/permission')
+		.withParams(paramsObject)
+		.build();
+
+	return command;
+}
+
+/**
  * Command for creating a TimeMyCar User.
  *
  *

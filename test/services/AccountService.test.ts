@@ -6,7 +6,11 @@ import {
 	UserCreateCall,
 	UserLoginCall
 } from '../../src';
-import { AccountService, UserInfoCall } from '../../src/services/AccountService';
+import {
+	AccountService,
+	OrganizationPermissionCall,
+	UserInfoCall
+} from '../../src/services/AccountService';
 
 const userPath = AccountService.USER_PATH;
 const organizationPath = AccountService.ORGANIZATION_PATH;
@@ -15,6 +19,7 @@ const defaultParams = Command.DEFAULT_PARAMS;
 
 const jwt = 'test-jwt';
 const orgName = 'test-org';
+const orgId = 'test-org-id';
 
 const email = 'abc@kiboigo.com';
 const firstName = 'test';
@@ -37,6 +42,17 @@ test('OrganizationListCall Command', () => {
 	expect(command.jwt).toBe(defaultJwt);
 	expect(command.path).toBe(organizationPath + '/list');
 	expect(command.params).toBe(defaultParams);
+});
+
+test('OrganizationPermissionCall Command', () => {
+	const command = OrganizationPermissionCall(orgId, jwt);
+
+	expect(command.method).toBe(RequestMethod.POST);
+	expect(command.jwt).toBe(jwt);
+	expect(command.path).toBe(organizationPath + '/permission');
+
+	// Params Checking
+	expect(command.params).toHaveProperty('organizationId', orgId);
 });
 
 test('UserCreateCall Command', () => {
