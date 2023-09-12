@@ -24,6 +24,12 @@ const orgId = 'test-org-id';
 const email = 'abc@kiboigo.com';
 const firstName = 'test';
 const lastName = 'user';
+const address1 = 'address1';
+const address2 = 'address2';
+const city = 'city';
+const state = 'state';
+const country = 'country';
+const postalCode = 'postalCode';
 const password = 'password';
 
 test('OrganizationCreateCall Command', async () => {
@@ -56,7 +62,18 @@ test('OrganizationPermissionCall Command', () => {
 });
 
 test('UserCreateCall Command', () => {
-	const command = UserCreateCall(email, firstName, lastName, password);
+	const command = UserCreateCall(
+		email,
+		firstName,
+		lastName,
+		address1,
+		address2,
+		city,
+		state,
+		country,
+		postalCode,
+		password
+	);
 
 	// Command Checking
 	expect(command.method).toBe(RequestMethod.POST);
@@ -67,6 +84,12 @@ test('UserCreateCall Command', () => {
 	expect(command.params).toHaveProperty('email', email);
 	expect(command.params).toHaveProperty('firstName', firstName);
 	expect(command.params).toHaveProperty('lastName', lastName);
+	expect(command.params).toHaveProperty('address1', address1);
+	expect(command.params).toHaveProperty('address2', address2);
+	expect(command.params).toHaveProperty('city', city);
+	expect(command.params).toHaveProperty('state', state);
+	expect(command.params).toHaveProperty('country', country);
+	expect(command.params).toHaveProperty('postalCode', postalCode);
 	expect(command.params).toHaveProperty('password', password);
 });
 

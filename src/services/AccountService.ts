@@ -72,6 +72,12 @@ export function OrganizationPermissionCall(organizationId: string, jwt: string):
  * @param email         	User E-Mail.
  * @param firstName         User's First Name.
  * @param lastName          User's Last Name.
+ * @param address1          User's Address Line #1.
+ * @param address2          User's Address Line #2.
+ * @param city          	User's City.
+ * @param state          	User's State.
+ * @param country          	User's Country.
+ * @param postalCode        User's Postal Code.
  * @param password     		User's Password (cleartext)
  * @returns                 User Creation Command.
  */
@@ -79,6 +85,12 @@ export function UserCreateCall(
 	email: string,
 	firstName: string,
 	lastName: string,
+	address1: string,
+	address2: string,
+	city: string,
+	state: string,
+	country: string,
+	postalCode: string,
 	password: string
 ): Command {
 	// Construct Params Object.
@@ -86,6 +98,12 @@ export function UserCreateCall(
 	paramsObject['email'] = email;
 	paramsObject['firstName'] = firstName;
 	paramsObject['lastName'] = lastName;
+	paramsObject['address1'] = address1;
+	paramsObject['address2'] = address2;
+	paramsObject['city'] = city;
+	paramsObject['state'] = state;
+	paramsObject['country'] = country;
+	paramsObject['postalCode'] = postalCode;
 	paramsObject['password'] = password;
 
 	const command = Command.builder()
