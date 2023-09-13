@@ -33,13 +33,18 @@ export function OrganizationCreateCall(name: string, jwt: string): Command {
 /**
  * Command for getting a list of Organizations on TimeMyCar.
  *
+ * @param jwt               JWT Auth Token if you have it. Undefined if you don't want to use it.
  * @returns                 Organization List Command.
  */
-export function OrganizationListCall(): Command {
-	const command = Command.builder()
-		.withMethod(RequestMethod.POST)
-		.withPath(AccountService.ORGANIZATION_PATH + '/list')
-		.build();
+export function OrganizationListCall(jwt?: string): Command {
+	let command: Command;
+	const path = AccountService.ORGANIZATION_PATH + '/list';
+
+	if (jwt) {
+		command = Command.builder().withMethod(RequestMethod.POST).withJwt(jwt).withPath(path).build();
+	} else {
+		command = Command.builder().withMethod(RequestMethod.POST).withPath(path).build();
+	}
 
 	return command;
 }

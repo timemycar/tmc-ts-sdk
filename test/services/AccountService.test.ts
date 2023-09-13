@@ -41,11 +41,20 @@ test('OrganizationCreateCall Command', async () => {
 	expect(command.params).toHaveProperty('name', orgName);
 });
 
-test('OrganizationListCall Command', () => {
+test('OrganizationListCall Command (no JWT)', () => {
 	const command = OrganizationListCall();
 
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(defaultJwt);
+	expect(command.path).toBe(organizationPath + '/list');
+	expect(command.params).toBe(defaultParams);
+});
+
+test('OrganizationListCall Command (JWT)', () => {
+	const command = OrganizationListCall(jwt);
+
+	expect(command.method).toBe(RequestMethod.POST);
+	expect(command.jwt).toBe(jwt);
 	expect(command.path).toBe(organizationPath + '/list');
 	expect(command.params).toBe(defaultParams);
 });
