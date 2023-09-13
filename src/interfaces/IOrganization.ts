@@ -5,7 +5,7 @@ import type { VisibilityStatus } from '../enums/VisibilityStatus';
 export interface IOrganization {
 	id: string;
 	name: string;
-	ownerId: string;
+	owner: string;
 	visibility: VisibilityStatus;
 	api: string;
 }
