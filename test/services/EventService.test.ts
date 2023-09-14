@@ -63,7 +63,6 @@ const racerQ = {} as IRacerQ;
 
 const eventPath = EventService.EVENT_PATH;
 const defaultJwt = Command.DEFAULT_JWT;
-const defaultParams = Command.DEFAULT_PARAMS;
 
 test('EventCreateCall Command', () => {
 	const command = EventCreateCall(
@@ -138,7 +137,7 @@ test('EventListCall Command (no JWT)', () => {
 	expect(command.jwt).toBe(defaultJwt);
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/list');
-	expect(command.params).toBe(defaultParams);
+	expect(command.params).not.toHaveProperty('organizationId');
 });
 
 test('EventListCall Command (JWT)', () => {
@@ -147,7 +146,7 @@ test('EventListCall Command (JWT)', () => {
 	expect(command.jwt).toBe(jwt);
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/list');
-	expect(command.params).toBe(defaultParams);
+	expect(command.params).not.toHaveProperty('organizationId');
 });
 
 test('EventListCall Command (JWT & Organization Id)', () => {

@@ -100,29 +100,26 @@ export function EventInfoCall(eventId: string, organizationId?: string, jwt?: st
  * @returns 				Event List Command.
  */
 export function EventListCall(organizationId?: string, jwt?: string): Command {
+	const paramsObject: any = new Object();
+
+	if (organizationId) {
+		paramsObject['organizationId'] = organizationId;
+	}
+
 	let command: Command;
 
 	if (jwt) {
-		if (organizationId) {
-			const paramsObject: any = new Object();
-			paramsObject['organizationId'] = organizationId;
-			command = Command.builder()
-				.withMethod(RequestMethod.POST)
-				.withJwt(jwt)
-				.withPath(EventService.EVENT_PATH + '/list')
-				.withParams(paramsObject)
-				.build();
-		} else {
-			command = Command.builder()
-				.withMethod(RequestMethod.POST)
-				.withJwt(jwt)
-				.withPath(EventService.EVENT_PATH + '/list')
-				.build();
-		}
+		command = Command.builder()
+			.withMethod(RequestMethod.POST)
+			.withJwt(jwt)
+			.withPath(EventService.EVENT_PATH + '/list')
+			.withParams(paramsObject)
+			.build();
 	} else {
 		command = Command.builder()
 			.withMethod(RequestMethod.POST)
 			.withPath(EventService.EVENT_PATH + '/list')
+			.withParams(paramsObject)
 			.build();
 	}
 
