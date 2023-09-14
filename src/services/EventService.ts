@@ -95,18 +95,30 @@ export function EventInfoCall(eventId: string, organizationId?: string, jwt?: st
 /**
  * Command to list all TimeMyCar Events.
  *
+ * @param organizationId 	OrganizationId. Set to undefined if you don't have or only want to search public Events. You need to supply a JWT if you use this.
  * @param jwt 				JWT Auth Token. Set to undefined if you don't have or only want to search public Events.
  * @returns 				Event List Command.
  */
-export function EventListCall(jwt?: string): Command {
+export function EventListCall(organizationId?: string, jwt?: string): Command {
 	let command: Command;
 
 	if (jwt) {
-		command = Command.builder()
-			.withMethod(RequestMethod.POST)
-			.withJwt(jwt)
-			.withPath(EventService.EVENT_PATH + '/list')
-			.build();
+		if (organizationId) {
+			const paramsObject: any = new Object();
+			paramsObject['organizationId'] = organizationId;
+			command = Command.builder()
+				.withMethod(RequestMethod.POST)
+				.withJwt(jwt)
+				.withPath(EventService.EVENT_PATH + '/list')
+				.withParams(paramsObject)
+				.build();
+		} else {
+			command = Command.builder()
+				.withMethod(RequestMethod.POST)
+				.withJwt(jwt)
+				.withPath(EventService.EVENT_PATH + '/list')
+				.build();
+		}
 	} else {
 		command = Command.builder()
 			.withMethod(RequestMethod.POST)

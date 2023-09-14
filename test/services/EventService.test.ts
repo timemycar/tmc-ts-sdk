@@ -142,12 +142,21 @@ test('EventListCall Command (no JWT)', () => {
 });
 
 test('EventListCall Command (JWT)', () => {
-	const command = EventListCall(jwt);
+	const command = EventListCall(undefined, jwt);
 
 	expect(command.jwt).toBe(jwt);
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/list');
 	expect(command.params).toBe(defaultParams);
+});
+
+test('EventListCall Command (JWT & Organization Id)', () => {
+	const command = EventListCall(organizationId, jwt);
+
+	expect(command.jwt).toBe(jwt);
+	expect(command.method).toBe(RequestMethod.POST);
+	expect(command.path).toBe(eventPath + '/list');
+	expect(command.params).toHaveProperty('organizationId', organizationId);
 });
 
 test('EventRacerAddCall Command', () => {
