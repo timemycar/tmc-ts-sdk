@@ -185,7 +185,7 @@ test('LapUpdateCall Command', () => {
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.jwt).toBe(jwt);
 	expect(command.path).toBe(lapPath + '/update');
-	expect(command.params).toHaveProperty('lap', lap);
+	expect(command.params).toHaveProperty('lap', JSON.stringify(lap));
 	expect(command.params).toHaveProperty('organizationId', organizationId);
 	expect(command.params).toHaveProperty('eventId', eventId);
 });

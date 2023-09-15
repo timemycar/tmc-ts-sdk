@@ -348,7 +348,7 @@ export function EventRacerQUpdateCall(
 	jwt: string
 ): Command {
 	const paramsObject: any = new Object();
-	paramsObject['racerQ'] = racerQ;
+	paramsObject['racerQ'] = JSON.stringify(racerQ);
 	paramsObject['organizationId'] = organizationId;
 	paramsObject['eventId'] = eventId;
 
@@ -378,7 +378,7 @@ export function EventRacerUpdateCall(
 	jwt: string
 ): Command {
 	const paramsObject: any = new Object();
-	paramsObject['racer'] = racer;
+	paramsObject['racer'] = JSON.stringify(racer);
 	paramsObject['organizationId'] = organizationId;
 	paramsObject['eventId'] = eventId;
 
@@ -402,7 +402,7 @@ export function EventRacerUpdateCall(
  */
 export function EventUpdateCall(event: IEvent, organizationId: string, jwt: string): Command {
 	const paramsObject: any = new Object();
-	paramsObject['event'] = event;
+	paramsObject['event'] = JSON.stringify(event);
 	paramsObject['organizationId'] = organizationId;
 
 	const command = Command.builder()

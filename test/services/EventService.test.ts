@@ -244,7 +244,7 @@ test('EventRacerQUpdateCall Command', () => {
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/racerq/update');
 
-	expect(command.params).toHaveProperty('racerQ', racerQ);
+	expect(command.params).toHaveProperty('racerQ', JSON.stringify(racerQ));
 	expect(command.params).toHaveProperty('organizationId', organizationId);
 	expect(command.params).toHaveProperty('eventId', eventId);
 });
@@ -256,7 +256,7 @@ test('EventRacerUpdateCall Command', () => {
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/racer/update');
 
-	expect(command.params).toHaveProperty('racer', racer);
+	expect(command.params).toHaveProperty('racer', JSON.stringify(racer));
 	expect(command.params).toHaveProperty('organizationId', organizationId);
 	expect(command.params).toHaveProperty('eventId', eventId);
 });
@@ -268,6 +268,6 @@ test('EventUpdateCall Command', () => {
 	expect(command.method).toBe(RequestMethod.POST);
 	expect(command.path).toBe(eventPath + '/update');
 
-	expect(command.params).toHaveProperty('event', event);
+	expect(command.params).toHaveProperty('event', JSON.stringify(event));
 	expect(command.params).toHaveProperty('organizationId', organizationId);
 });

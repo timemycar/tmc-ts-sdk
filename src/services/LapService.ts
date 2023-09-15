@@ -238,7 +238,7 @@ export function LapUpdateCall(
 	jwt: string
 ): Command {
 	const paramsObject: any = new Object();
-	paramsObject['lap'] = lap;
+	paramsObject['lap'] = JSON.stringify(lap);
 	paramsObject['organizationId'] = organizationId;
 	paramsObject['eventId'] = eventId;
 
