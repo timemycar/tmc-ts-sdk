@@ -14,10 +14,10 @@ import {
 	EventService,
 	EventUpdateCall,
 	IEvent,
+	IRacer,
 	IRacerQ,
 	RequestMethod
 } from '../../src';
-import { Racer } from '../../src/model/Racer';
 
 const jwt = 'test-jwt';
 
@@ -47,17 +47,19 @@ const carMake = 'Toyota';
 const carModel = 'Tundra';
 const carColor = 'Silver';
 
-const racer = new Racer(
-	motorsportRegId,
-	firstName,
-	lastName,
-	carClass,
-	carNumber,
-	carYear,
-	carMake,
-	carModel,
-	carColor
-);
+const racer: IRacer = {
+	motorsportRegId: motorsportRegId,
+	firstName: firstName,
+	lastName: lastName,
+	carClass: carClass,
+	carNumber: carNumber,
+	carYear: carYear,
+	carMake: carMake,
+	carModel: carModel,
+	carColor: carColor,
+	lastUpdatedTime: 0,
+	creationTime: 0
+};
 
 const racerQ = {} as IRacerQ;
 

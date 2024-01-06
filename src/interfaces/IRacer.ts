@@ -1,6 +1,8 @@
 // Taken directly from Helium (08/26/23)
 
-export interface IRacer {
+import { ITemporal } from './extend/ITemporal';
+
+export interface IRacer extends ITemporal {
 	id?: string;
 	motorsportRegId: string;
 	firstName: string;

@@ -2,8 +2,9 @@
 
 import type { LapFlag } from '../enums/LapFlag';
 import type { LapStatus } from '../enums/LapStatus';
+import { ITemporal } from './extend/ITemporal';
 
-export interface ILap {
+export interface ILap extends ITemporal {
 	id: string;
 	status: LapStatus;
 	racerId: string;
@@ -15,8 +16,6 @@ export interface ILap {
 	startTime: number;
 	stopTime: number;
 	rawTime: number;
-	creationTime: number;
-	lastUpdatedTime: number;
 	finalTime: number;
 }
 

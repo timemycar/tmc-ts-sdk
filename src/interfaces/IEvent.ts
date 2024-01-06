@@ -2,8 +2,9 @@
 
 import { EventStatus } from '../enums/EventStatus';
 import { VisibilityStatus } from '../enums/VisibilityStatus';
+import { ITemporal } from './extend/ITemporal';
 
-export interface IEvent {
+export interface IEvent extends ITemporal {
 	id: string;
 	name: string;
 	status: EventStatus;

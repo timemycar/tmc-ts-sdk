@@ -4,8 +4,8 @@
 import { Command } from '../command/Command';
 import { RequestMethod } from '../enums/RequestMethod';
 import { IEvent } from '../interfaces/IEvent';
+import { IRacer } from '../interfaces/IRacer';
 import { IRacerQ } from '../interfaces/IRacerQ';
-import { Racer } from '../model/Racer';
 
 // TODO: These currently use the Interfaces because the classes aren't build
 // Change ASAP.
@@ -136,7 +136,7 @@ export function EventListCall(organizationId?: string, jwt?: string): Command {
  * @returns                 Event Racer Add Command.
  */
 export function EventRacerAddCall(
-	racer: Racer,
+	racer: IRacer,
 	organizationId: string,
 	eventId: string,
 	jwt: string
@@ -372,7 +372,7 @@ export function EventRacerQUpdateCall(
  * @returns 				Event Racer Update Command.
  */
 export function EventRacerUpdateCall(
-	racer: Racer,
+	racer: IRacer,
 	organizationId: string,
 	eventId: string,
 	jwt: string
